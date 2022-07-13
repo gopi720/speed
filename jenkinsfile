@@ -7,7 +7,7 @@ pipeline{
   stages{
     stage("scm checkout"){
       steps{
-        git(url: 'https://github.com/gopi720/speed.git', crediantialsId: 'github')
+        git(url: 'https://github.com/gopi720/speed.git', credentialsId: 'github')
       }
     }
     stage("build"){
