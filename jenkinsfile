@@ -1,0 +1,22 @@
+pipeline{
+  agent any
+  tools{
+    maven 'maven'
+    jdk 'java11'
+  }
+  stages{
+    stage("scm checkout"){
+      steps{
+        git(url: 'https://github.com/gopi720/speed.git', crediantialsId: 'github')
+      }
+    }
+    stage("build"){
+      steps{
+        sh '''
+             mvn clean verify
+        '''
+      }
+    }
+  }
+}
+
