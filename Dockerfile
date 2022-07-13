@@ -7,4 +7,4 @@ WORKDIR /u01/middleware
 ADD https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz .
 ADD https://dlcdn.apache.org/tomcat/tomcat-10/v10.0.22/bin/apache-tomcat-10.0.22.tar.gz .
 RUN tar -xzvf openjdk-11+28_linux-x64_bin.tar.gz 
-RUN tar -xzvf apache-tomcat-10.0.22.tar.gz
+#RUN tar -xzvf apache-tomcat-10.0.22.tar.gz
