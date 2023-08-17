@@ -1,11 +1,15 @@
 @Library('speed') _
 pipeline{
   agent any
+  parameters{
+    choice choices: ['create', 'delete'], description: 'choose create or delete', name: 'action'
+  }
   tools{
     maven 'maven'
   }
   stages{
     stage("scm checkout"){
+      when{ expression{ params.action == "create"} }
       steps{
         gitcheckout(
           branch: "main",
@@ -14,6 +18,7 @@ pipeline{
       }
     }
     stage("maven test"){
+      when{ expression{ params.action == "create"} }
       steps{
         mavenTest()
       }
