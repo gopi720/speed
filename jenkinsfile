@@ -8,10 +8,10 @@ pipeline{
     stage("scm checkout"){
       steps{
         script{
-          gitcheckout{
+          gitcheckout(
             branch: "main"
             url: "https://github.com/gopi720/speed.git"
-          }
+          )
         }
       }
     }
