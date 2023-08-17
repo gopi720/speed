@@ -1,4 +1,4 @@
-@Library{'speed'} _
+@Library('speed') _
 pipeline{
   agent any
   tools{
