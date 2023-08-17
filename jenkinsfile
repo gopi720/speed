@@ -24,8 +24,15 @@ pipeline{
       }
     }
     stage("maven integration"){
+      when{ expression{ params.action == "create"} }
       steps{
         mvnintegrationtest()
+      }
+    }
+    stage("code analysis"){
+      when{ expression{ params.action == "create"} }
+      steps{
+        staticCodeanalysis()
       }
     }
   }
