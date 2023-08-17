@@ -1,3 +1,4 @@
+@Library{'speed'}
 pipeline{
   agent any
   tools{
@@ -6,7 +7,12 @@ pipeline{
   stages{
     stage("scm checkout"){
       steps{
-        git(url: 'https://github.com/gopi720/speed.git', branch: 'main')
+        script{
+          gitcheckout{
+            branch: "main"
+            url: "https://github.com/gopi720/speed.git"
+          }
+        }
       }
     }
   }
