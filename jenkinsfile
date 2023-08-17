@@ -7,14 +7,7 @@ pipeline{
   stages{
     stage("scm checkout"){
       steps{
-        git(url: 'https://github.com/gopi720/speed.git', credentialsId: 'github')
-      }
-    }
-    stage("build"){
-      steps{
-        sh '''
-          mvn clean verify
-        '''
+        git(url: 'https://github.com/gopi720/speed.git', branch: 'main')
       }
     }
   }
