@@ -35,6 +35,12 @@ pipeline{
         staticCodeanalysis()
       }
     }
+    stage("mavenbuild"){
+      when{ expression{ params.action == "create"} }
+      steps{
+        mavenbuild()
+      }
+    }
   }
 }
 
