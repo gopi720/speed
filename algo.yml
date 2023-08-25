@@ -1,0 +1,26 @@
+- name: Build image using packer
+  hosts: all
+  become: yes
+  vars:
+    file_vars:
+      - { name: ami-amr.pkr }
+      - { name: variables.pkr }
+
+  tasks:
+    - name: check if .pkr.hcl files exists
+      stat:
+        path: "{{ item.name }}.hcl"
+      loop: "{{ file_vars }}"
+      register: hcl_file_exists
+
+    - name: copy packer files
+      copy:
+        src: "{{ item.item.name }}.hcl"
+        dest: "/tmp/{{ item.item.name }}.hcl"
+      loop: "{{ hcl_file_exists.results }}"
+      when: item.stat.exists
+
+
+    - name: execute packer build
+      command: packer build /tmp/ami-amr.pkr.hcl
+      when: hcl_file_exists.results[0].stat.exists
