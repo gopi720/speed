@@ -1,20 +1,44 @@
+@Library('speed') _
 pipeline{
   agent any
+  parameters{
+    choice choices: ['create', 'delete'], description: 'choose create or delete', name: 'action'
+  }
   tools{
     maven 'maven'
-    jdk 'java11'
   }
   stages{
     stage("scm checkout"){
+      when{ expression{ params.action == "create"} }
       steps{
-        git(url: 'https://github.com/gopi720/speed.git', credentialsId: 'github')
+        gitcheckout(
+          branch: "main",
+          url: "https://github.com/gopi720/speed.git"
+        )
       }
     }
-    stage("build"){
+    stage("maven test"){
+      when{ expression{ params.action == "create"} }
       steps{
-        sh '''
-          mvn clean verify
-        '''
+        mavenTest()
+      }
+    }
+    stage("maven integration"){
+      when{ expression{ params.action == "create"} }
+      steps{
+        mvnintegrationtest()
+      }
+    }
+    stage("code analysis"){
+      when{ expression{ params.action == "create"} }
+      steps{
+        staticCodeanalysis()
+      }
+    }
+    stage("mavenbuild"){
+      when{ expression{ params.action == "create"} }
+      steps{
+        mavenbuild()
       }
     }
   }
