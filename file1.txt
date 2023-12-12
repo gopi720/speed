@@ -1,6 +1,2 @@
 file1
 fil
-
-
-file3
-hello
